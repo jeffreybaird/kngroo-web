@@ -8,6 +8,8 @@ Kngroo::Application.routes.draw do
   match '/sign_up' => 'users#new', :via => :get, :as => 'sign_up'
   match '/sign_out' => 'sessions#destroy', :via => [:get,:delete], :as => 'sign_out'
   
+  resources :hops, :only => [ :index, :show ]
+  
   root :to => 'home#index'
   
   # The priority is based upon order of creation:
