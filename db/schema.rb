@@ -10,10 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111018012715) do
+ActiveRecord::Schema.define(:version => 20111018012915) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hops", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "category_id"
+    t.integer  "points"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

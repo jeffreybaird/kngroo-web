@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class CategoryTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+
+  should have_many :hops
+  should validate_presence_of :title
+  
 end
