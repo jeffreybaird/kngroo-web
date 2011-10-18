@@ -9,6 +9,7 @@ Kngroo::Application.routes.draw do
   match '/sign_out' => 'sessions#destroy', :via => [:get,:delete], :as => 'sign_out'
   
   resources :hops, :only => [ :index, :show ]
+  resources :assignments, :only => [ :create, :destroy ]
   
   root :to => 'home#index'
   

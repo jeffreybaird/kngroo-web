@@ -2,3 +2,10 @@
 %ul
 	- for hop in @hops
 		%li= link_to hop.title, hop
+%p.control= link_to_function "Find a Hop", "$('#add_hop').dialog({modal:true,title:'Find a Hop',width:'800px'})"
+#add_hop{:style => 'display:none'}
+	= form_for Assignment.new do |f|
+		%p
+			= f.label :hop_id
+			= f.collection_select :hop_id, Hop.all-@hops, :id, :title
+		= f.submit "Add Hop"

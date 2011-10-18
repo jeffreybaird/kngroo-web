@@ -4,10 +4,18 @@ class HopsController < ApplicationController
   
   def index
     @hops = current_user.hops
+    respond_to do |format|
+      format.html
+      format.json { render :json => @hops }
+    end
   end
   
   def show
-    @hop = Hop.find(params[:id])
+    @hop = Hop.includes(:venues).find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render :json => @hop.to_json(:include => :venues) }
+    end
   end
   
 end
