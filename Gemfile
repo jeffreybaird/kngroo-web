@@ -7,6 +7,7 @@ gem 'rails', '3.0.7'
 
 gem 'clearance', '0.12.0', :git => 'git://github.com/agoodman/clearance.git'
 gem 'haml'
+gem 'jquery-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'

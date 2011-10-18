@@ -1,0 +1,33 @@
+!!!
+%html
+	%head
+		%title 
+			Kngroo
+			- unless yield(:title).blank?
+				= " - #{yield(:title)}"
+		= stylesheet_link_tag :all
+		= javascript_include_tag :all
+		%script{:src=>"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"}
+		%link{:rel=>"stylesheet", :href=>"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css", :type=>"text/css", :media=>"all"}
+		= csrf_meta_tag
+	%body
+		#header
+			= link_to "Kngroo", root_path, :class => 'logo'
+			%ul.menu
+				- if signed_in?
+					%li= link_to "My Hops", hops_path
+					%li= link_to "My Account", user_path(current_user)
+					%li= link_to "Sign Out", sign_out_path, :method => :delete
+				- else
+					%li= link_to "Sign In", sign_in_path
+					%li= link_to "Sign Up", sign_up_path
+		#main
+			.breadcrumb= yield(:breadcrumb)
+			- if flash[:notice]
+				.ui-state-highlight= flash[:notice]
+			- if flash[:alert]
+				.ui-state-error= flash[:alert]
+			
+			= yield 
+		#footer
+			© 2011 Kngroo, Inc. All Rights Reserved.
