@@ -7,6 +7,7 @@ class HopTest < ActiveSupport::TestCase
   should have_many :venues
   should have_many :assignments
   should have_many :users
+  should have_many :checkins
   
   should validate_presence_of :title
   should validate_presence_of :description

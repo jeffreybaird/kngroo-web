@@ -5,6 +5,7 @@ class Hop < ActiveRecord::Base
   has_many :venues, :through => :memberships
   has_many :assignments
   has_many :users, :through => :assignments
+  has_many :checkins
   
   validates_presence_of :title, :description, :points
   validates_numericality_of :points
