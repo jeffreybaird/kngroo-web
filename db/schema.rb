@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111018012915) do
+ActiveRecord::Schema.define(:version => 20111018020441) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -41,5 +41,14 @@ ActiveRecord::Schema.define(:version => 20111018012915) do
   add_index "users", ["api_token"], :name => "index_users_on_api_token"
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "venues", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.float    "lat"
+    t.float    "lng"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
