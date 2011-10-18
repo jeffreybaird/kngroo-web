@@ -6,6 +6,7 @@ class Hop < ActiveRecord::Base
   has_many :assignments
   has_many :users, :through => :assignments
   has_many :checkins
+  has_many :trivias
   
   validates_presence_of :title, :description, :points
   validates_numericality_of :points
