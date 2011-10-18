@@ -6,4 +6,6 @@ class Trivia < ActiveRecord::Base
   
   validates_presence_of :hop_id, :venue_id, :question, :answer
   
+  set_table_name 'trivia'
+  
 end
