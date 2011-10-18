@@ -1,4 +1,15 @@
 Kngroo::Application.routes.draw do
+  
+  resources :users, :only => [ :new, :create ]
+  resource :user, :only => [ :show, :update, :destroy ]
+  resources :sessions, :only => [ :new, :create ]
+  resource :session, :only => [ :destroy ]
+  match '/sign_in' => 'sessions#new', :via => :get, :as => 'sign_in'
+  match '/sign_up' => 'users#new', :via => :get, :as => 'sign_up'
+  match '/sign_out' => 'sessions#destroy', :via => [:get,:delete], :as => 'sign_out'
+  
+  root :to => 'home#index'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
