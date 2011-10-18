@@ -31,12 +31,12 @@ class AssignmentsControllerTest < ActionController::TestCase
     
     context "on post create" do
       setup { post :create, :assignment => { :hop_id => @hop.id } }
-      should ("redirect to hops"){redirect_to hops_path}
+      should ("redirect to user hops"){redirect_to user_hops_path}
     end
     
     context "on delete destroy" do
       setup { delete :destroy, :id => @hop.assignments.first.id }
-      should ("redirect to hops"){redirect_to hops_path}
+      should ("redirect to user hops"){redirect_to user_hops_path}
     end
   end
 

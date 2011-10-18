@@ -1,4 +1,6 @@
 class UsersController < Clearance::UsersController
+
+  before_filter :authorize, :only => [ :show, :update, :destroy ]
   
   def show
     @user = current_user

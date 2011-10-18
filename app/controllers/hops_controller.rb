@@ -3,7 +3,7 @@ class HopsController < ApplicationController
   before_filter :authorize
   
   def index
-    @hops = current_user.hops
+    @hops = Hop.all
     respond_to do |format|
       format.html
       format.json { render :json => @hops }

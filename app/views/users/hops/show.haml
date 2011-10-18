@@ -1,0 +1,11 @@
+= content_for :breadcrumb do
+	= link_to "My Hops", user_hops_path
+
+%h1 Hop: #{@hop.title}
+%h2 Venues
+%ul.checkins
+	- for venue in @hop.venues
+		- if @hop.checkins.select {|c| c.venue==venue && c.user==current_user}.empty?
+			%li= venue.name
+		- else
+			%li.completed= venue.name

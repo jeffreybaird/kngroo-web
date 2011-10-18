@@ -1,0 +1,2 @@
+module Users::HopsHelper
+end

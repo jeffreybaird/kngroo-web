@@ -14,9 +14,10 @@
 		#header
 			= link_to "Kngroo", root_path, :class => 'logo'
 			%ul.menu
+				%li= link_to "All Hops", hops_path
 				- if signed_in?
-					%li= link_to "My Hops", hops_path
-					%li= link_to "My Account", user_path(current_user)
+					%li= link_to "My Hops", user_hops_path
+					%li= link_to "My Account", user_path
 					%li= link_to "Sign Out", sign_out_path, :method => :delete
 				- else
 					%li= link_to "Sign In", sign_in_path
