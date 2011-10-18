@@ -5,6 +5,8 @@ class HopTest < ActiveSupport::TestCase
   should belong_to :category
   should have_many :memberships
   should have_many :venues
+  should have_many :assignments
+  should have_many :users
   
   should validate_presence_of :title
   should validate_presence_of :description
