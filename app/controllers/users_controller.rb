@@ -2,6 +2,10 @@ class UsersController < Clearance::UsersController
   
   def show
     @user = current_user
+    respond_to do |format|
+      format.html
+      format.json { render :json => @user.to_json(:include => { :hops => { :include => :venues } }) }
+    end
   end
   
   def update
