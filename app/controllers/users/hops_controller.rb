@@ -3,10 +3,10 @@ class Users::HopsController < ApplicationController
   before_filter :authorize
   
   def index
-    @hops = current_user.hops
+    @hops = Hop.includes(:venues).joins(:assignments).where(['assignments.user_id = ?',current_user.id])
     respond_to do |format|
       format.html
-      format.json { render :json => @hops }
+      format.json { render :json => @hops.to_json(:include => :venues) }
     end
   end
   
