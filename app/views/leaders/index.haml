@@ -1,0 +1,4 @@
+%h1 Leaders
+%ul
+	- for user in @users
+		%li #{user.email} (#{user.points} pts)

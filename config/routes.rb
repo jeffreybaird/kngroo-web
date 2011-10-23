@@ -1,5 +1,5 @@
 Kngroo::Application.routes.draw do
-  
+
   resources :users, :only => [ :new, :create ]
   resource :user, :only => [ :show, :update, :destroy ] do
     resources :hops, :controller => 'users/hops', :only => [ :index, :show ]
@@ -10,8 +10,15 @@ Kngroo::Application.routes.draw do
   match '/sign_up' => 'users#new', :via => :get, :as => 'sign_up'
   match '/sign_out' => 'sessions#destroy', :via => [:get,:delete], :as => 'sign_out'
   
-  resources :hops, :only => [ :index, :show ]
+  resources :hops, :only => [ :index, :show ] do
+    resources :venues, :controller => 'hops/venues', :only => [ :index, :show ] do
+      member do
+        get :checkin
+      end
+    end
+  end
   resources :assignments, :only => [ :create, :destroy ]
+  resources :leaders, :only => [ :index ]
   
   root :to => 'home#index'
   

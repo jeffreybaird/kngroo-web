@@ -4,14 +4,14 @@ class HopsController < ApplicationController
   
   def index
     if signed_in?
-      @hops = Hop.all - current_user.hops
+      @hops = Hop.includes(:venues).all - current_user.hops
     else
-      @hops = Hop.all
+      @hops = Hop.includes(:venues).all
     end
 
     respond_to do |format|
       format.html
-      format.json { render :json => @hops }
+      format.json { render :json => @hops.to_json(:include => :venues) }
     end
   end
   

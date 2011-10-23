@@ -1,0 +1,2 @@
+module Hops::VenuesHelper
+end
