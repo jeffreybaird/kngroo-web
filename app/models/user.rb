@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   
   has_many :assignments
   has_many :hops, :through => :assignments
-  has_many :checkins
+  has_many :checkins, :through => :assignments
   has_many :confirmations
   has_many :trophies
   

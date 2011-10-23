@@ -35,6 +35,7 @@ class Hops::VenuesControllerTest < ActionController::TestCase
       @venue = Factory(:venue)
       @hop.venues << @venue
       @user.hops << @hop
+      @assignment = @user.assignments.first
       sign_in_as @user
     end
     
@@ -57,8 +58,8 @@ class Hops::VenuesControllerTest < ActionController::TestCase
         @venue2 = Factory(:venue)
         @venue3 = Factory(:venue)
         @hop.venues << [@venue2, @venue3]
-        @checkin1 = Checkin.create(:hop_id => @hop.id, :venue_id => @venue2, :user_id => @user.id)
-        @checkin2 = Checkin.create(:hop_id => @hop.id, :venue_id => @venue2, :user_id => @user.id)
+        @checkin1 = Checkin.create(:assignment_id => @assignment.id, :venue_id => @venue2)
+        @checkin2 = Checkin.create(:assignment_id => @assignment.id, :venue_id => @venue2)
       end
       
       context "on get checkin" do

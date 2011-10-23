@@ -5,7 +5,7 @@ class Hop < ActiveRecord::Base
   has_many :venues, :through => :memberships
   has_many :assignments
   has_many :users, :through => :assignments
-  has_many :checkins
+  has_many :checkins, :through => :assignments
   has_many :trivias
   has_many :trophies
   

@@ -20,7 +20,7 @@ class Hops::VenuesController < ApplicationController
   end
   
   def checkin
-    @checkin = Checkin.new(:hop_id => @hop.id, :venue_id => @venue.id, :user_id => current_user.id)
+    @checkin = Checkin.new(:assignment_id => Assignment.find_by_hop_id_and_user_id(@hop.id, current_user.id).id, :venue_id => @venue.id)
     respond_to do |format|
       if @checkin.save
         format.html { redirect_to hop_venue_path(@hop,@venue) }
@@ -34,6 +34,7 @@ class Hops::VenuesController < ApplicationController
   
   def assign_hop
     @hop = Hop.find(params[:hop_id]) if params[:hop_id]
+    deny_access unless @hop.users.include?(current_user)
   end
   
   def assign_venue
