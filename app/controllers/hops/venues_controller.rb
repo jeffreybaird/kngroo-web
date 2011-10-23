@@ -24,7 +24,7 @@ class Hops::VenuesController < ApplicationController
     respond_to do |format|
       if @checkin.save
         format.html { redirect_to hop_venue_path(@hop,@venue) }
-        format.json { render :json => @checkin.to_json(:include => [:hop, :venue, :user]) }
+        format.json { render :json => @checkin.to_json(:methods => :trophy_awarded) }
       else
         format.html { redirect_to hop_venue_path(@hop, @venue), :alert => @checkin.errors.full_messages.join("<br/>") }
         format.json { render :json => { :errors => @checkin.errors.full_messages } }
