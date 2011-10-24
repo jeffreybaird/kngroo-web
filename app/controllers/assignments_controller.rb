@@ -18,7 +18,7 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       if @assignment.save
         format.html { redirect_to user_hops_path }
-        format.json { head :ok }
+        format.json { render :json => @assignment.to_json(:include => { :hop => { :include => :venues }, :checkins => {} }) }
       else
         format.html { redirect_to user_hops_path, :alert => @assignment.errors.full_messages.join("<br/>") }
         format.json { render :json => { :errors => @assignment.errors.full_messages } }
