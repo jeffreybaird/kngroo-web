@@ -6,7 +6,7 @@
 			- unless yield(:title).blank?
 				= " - #{yield(:title)}"
 		= stylesheet_link_tag 'style'
-		= javascript_include_tag 'jquery.min', 'jquery-ui.min'
+		= javascript_include_tag 'jquery.min', 'jquery-ui.min', 'application'
 		%script{:src=>"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"}
 		%link{:rel=>"stylesheet", :href=>"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css", :type=>"text/css", :media=>"all"}
 		= csrf_meta_tag

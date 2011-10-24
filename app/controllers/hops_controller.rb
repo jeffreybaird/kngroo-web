@@ -15,6 +15,15 @@ class HopsController < ApplicationController
     end
   end
   
+  def create
+    @hop = Hop.new(params[:hop])
+    if @hop.save
+      redirect_to @hop
+    else
+      redirect_to hops_path, :alert => @hop.errors.full_messages.join("<br/>")
+    end
+  end
+  
   def show
     @hop = Hop.includes(:venues).find(params[:id])
     respond_to do |format|

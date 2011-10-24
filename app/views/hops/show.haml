@@ -3,6 +3,31 @@
 
 %h1 Hop: #{@hop.title}
 %h2 Venues
-%ul
-	- for venue in @hop.venues
-		%li= venue.name
+- if @hop.venues.empty?
+	%p No venues
+- else
+	%ul
+		- for venue in @hop.venues
+			%li= venue.name
+
+- if signed_in? && current_user.may_update_hop?(@hop)
+	%p.control= link_to_function "Add Venue", "$('#add_venue').dialog({modal:true,title:'Create a Venue',width:'800px'})"
+	#add_venue.tabs{:style => "display:none"}
+		%ul
+			%li= link_to "Select Existing", '#existing_venue'
+			%li= link_to "Create New", '#new_venue'
+		#existing_venue
+			= form_for Membership.new do |f|
+				= f.hidden_field :hop_id, :value => @hop.id
+				%p
+					= f.label :venue_id
+					= f.collection_select :venue_id, Venue.all-@hop.venues, :id, :name
+				%p.control= f.submit "Add Venue to Hop"
+		#new_venue
+			= form_for Membership.new do |f|
+				= f.hidden_field :hop_id, :value => @hop.id
+				= f.fields_for :venue_attributes do |v|
+					%p
+						= v.label :name
+						= v.text_field :name
+				%p.control= f.submit "Create Venue"

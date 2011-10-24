@@ -1,4 +1,22 @@
-%h1 All Hops
-%ul
-	- for hop in @hops
-		%li= link_to hop.title, hop
+%h1 Find a Hop
+- if @hops.empty?
+	%p No available hops
+- else
+	%ul
+		- for hop in @hops
+			%li= link_to hop.title, hop
+
+- if signed_in? && current_user.may_create_hop?
+	%p.control= link_to_function "Add Hop", "$('#add_hop').dialog({modal:true,title:'Create a Hop',width:'800px'})"
+	#add_hop{:style => "display:none"}
+		= form_for Hop.new do |f|
+			%p
+				= f.label :title
+				= f.text_field :title
+			%p
+				= f.label :points
+				= f.text_field :points, :size => 4
+			%p
+				= f.label :description
+				= f.text_area :description, :rows => 4, :cols => 20
+			%p.control= f.submit "Create Hop"
