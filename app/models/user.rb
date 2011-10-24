@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
     self.points = 0
   end
   
+  def generate_api_token
+    self.api_token = Digest::SHA1.hexdigest("--#{email}--#{Time.now}--")[0..9]
+  end
+  
 end
