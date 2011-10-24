@@ -2,7 +2,7 @@ Kngroo::Application.routes.draw do
 
   resources :users, :only => [ :new, :create ]
   resource :user, :only => [ :show, :update, :destroy ] do
-    resources :assignments, :only => [ :index ] do
+    resources :assignments, :only => [ :index, :create, :destroy ] do
       resources :venues, :only => :show do
         resources :checkins, :only => :create
       end
@@ -17,7 +17,6 @@ Kngroo::Application.routes.draw do
   resources :hops, :only => [ :create, :index, :show ] do
     resources :venues, :controller => 'hops/venues', :only => [ :index, :show ]
   end
-  # resources :assignments, :only => [ :create, :destroy ]
   resources :memberships, :only => [ :create, :destroy ]
   resources :leaders, :only => [ :index ]
   
