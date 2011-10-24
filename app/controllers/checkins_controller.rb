@@ -12,7 +12,7 @@ class CheckinsController < ApplicationController
         format.json { render :json => @checkin.to_json(:methods => :trophy_awarded) }
       else
         format.html { redirect_to hop_venue_path(@hop, @venue), :alert => @checkin.errors.full_messages.join("<br/>") }
-        format.json { render :json => { :errors => @checkin.errors.full_messages } }
+        format.json { render :json => { :errors => @checkin.errors.full_messages }, :status => :unprocessable_entity }
       end
     end
   end
@@ -24,6 +24,12 @@ class CheckinsController < ApplicationController
   
   def assign_venue
     @venue = Venue.find(params[:venue_id])
+  end
+  
+  def deny_access
+    respond_to do |format|
+      format.json { render :json => { :errors => ["You are not authorized"] }, :status => :unauthorized }
+    end
   end
   
 end

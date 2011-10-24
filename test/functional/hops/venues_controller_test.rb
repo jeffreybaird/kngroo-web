@@ -21,11 +21,6 @@ class Hops::VenuesControllerTest < ActionController::TestCase
       setup { get :show, :hop_id => @hop.id, :id => @venue.id }
       should ("redirect to sign in"){redirect_to sign_in_path}
     end
-    
-    context "on get checkin" do
-      setup { get :checkin, :hop_id => @hop.id, :id => @venue.id }
-      should ("redirect to sign in"){redirect_to sign_in_path}
-    end
   end
   
   context "when signed in" do
@@ -51,26 +46,6 @@ class Hops::VenuesControllerTest < ActionController::TestCase
       should respond_with :success
       should assign_to :hop
       should assign_to :venue
-    end
-
-    context "for a hop with three venues and two checkins" do
-      setup do
-        @venue2 = Factory(:venue)
-        @venue3 = Factory(:venue)
-        @hop.venues << [@venue2, @venue3]
-        @checkin1 = Checkin.create(:assignment_id => @assignment.id, :venue_id => @venue2)
-        @checkin2 = Checkin.create(:assignment_id => @assignment.id, :venue_id => @venue2)
-      end
-      
-      context "on get checkin" do
-        setup do
-          # @trophy_count = Trophy.where(:hop_id => @hop.id, :user_id => @user.id).count
-          @trophy_count = Trophy.count
-          get :checkin, :hop_id => @hop.id, :id => @venue.id
-        end
-        should ("redirect to hop venue"){redirect_to hop_venue_path(@hop,@venue)}
-        should ("have a new trophy associated with this hop"){assert_equal(@trophy_count+1,Trophy.count)}
-      end
     end
   end
   

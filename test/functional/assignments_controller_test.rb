@@ -6,7 +6,6 @@ class AssignmentsControllerTest < ActionController::TestCase
     setup do
       @user = Factory(:user)
       @hop = Factory(:hop)
-      @hop.users << @user
       sign_out
     end
     
@@ -16,7 +15,10 @@ class AssignmentsControllerTest < ActionController::TestCase
     end
     
     context "on delete destroy" do
-      setup { delete :destroy, :id => @hop.assignments.first.id }
+      setup do
+        @assignment = Factory(:assignment, :user => @user, :hop => @hop)
+        delete :destroy, :id => @assignment.id
+      end
       should ("redirect to sign in"){redirect_to sign_in_path}
     end
   end
@@ -25,7 +27,6 @@ class AssignmentsControllerTest < ActionController::TestCase
     setup do
       @user = Factory(:user)
       @hop = Factory(:hop)
-      @hop.users << @user
       sign_in_as @user
     end
     
@@ -35,7 +36,10 @@ class AssignmentsControllerTest < ActionController::TestCase
     end
     
     context "on delete destroy" do
-      setup { delete :destroy, :id => @hop.assignments.first.id }
+      setup do
+        @assignment = Factory(:assignment, :user => @user, :hop => @hop)
+        delete :destroy, :id => @assignment.id
+      end
       should ("redirect to user hops"){redirect_to user_hops_path}
     end
   end
