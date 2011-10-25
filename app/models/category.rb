@@ -4,4 +4,6 @@ class Category < ActiveRecord::Base
   
   validates_presence_of :title
   
+  default_scope :order => "title asc"
+  
 end

@@ -10,6 +10,8 @@ task :import_categories => :environment do
   for cat in cats['response']['categories']
     puts cat['name']
     c = Category.find_or_create_by_title(cat['name'])
+    c.icon = cat['icon']
+    c.save
   end
   
 end
