@@ -1,4 +1,7 @@
-%h1 Find a Hop
+- if signed_in? && current_user.has_role?('admin')
+	%h1 All Hops
+- else
+	%h1 Find a Hop
 - if @hops.empty?
 	%p No available hops
 - else

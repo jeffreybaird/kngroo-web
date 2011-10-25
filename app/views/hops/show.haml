@@ -1,14 +1,21 @@
 = content_for :breadcrumb do
 	= link_to "All Hops", hops_path
+	»
 
 %h1 Hop: #{@hop.title}
+%p.control
+	- if @hop.published?
+		%label Status: Published
+	- else
+		%label Status: Draft
+		= link_to "Publish Now", publish_hop_path(@hop), :class => 'clock text'
 %h2 Venues
 - if @hop.venues.empty?
 	%p No venues
 - else
 	%ul
 		- for venue in @hop.venues
-			%li= venue.name
+			%li= link_to venue.name, hop_venue_path(@hop,venue)
 
 - if signed_in? && current_user.may_update_hop?(@hop)
 	%p.control= link_to_function "Add Venue", "$('#add_venue').dialog({modal:true,title:'Create a Venue',width:'800px'})"

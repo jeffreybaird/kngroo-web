@@ -13,15 +13,24 @@
 	%body
 		#header
 			= link_to "Kngroo", root_path, :class => 'logo'
-			%ul.menu
-				- if signed_in?
-					%li= link_to "Find a Hop", hops_path
-					%li= link_to "My Hops", user_hops_path
-					%li= link_to "My Account", user_path
-					%li= link_to "Sign Out", sign_out_path, :method => :delete
-				- else
-					%li= link_to "Sign In", sign_in_path
-					%li= link_to "Sign Up", sign_up_path
+			.menu
+				- if signed_in? && current_user.has_role?('admin')
+					%ul.admin
+						%li= link_to "Hops", hops_path					
+				- if signed_in? && current_user.has_role?('user')
+					%ul.user
+						- if signed_in?
+							%li= link_to "Find a Hop", hops_path
+							%li= link_to "My Hops", user_hops_path
+				%ul.session
+					- if signed_in?
+						%li= link_to "My Account", user_path
+						%li= link_to "Sign Out", sign_out_path, :method => :delete
+					- else
+						%li= link_to "Sign In", sign_in_path
+						%li= link_to "Sign Up", sign_up_path
+			%hr
+			
 		#main
 			.breadcrumb= yield(:breadcrumb)
 			- if flash[:notice]
@@ -29,6 +38,9 @@
 			- if flash[:alert]
 				.ui-state-error= flash[:alert]
 			
-			= yield 
+			= yield
+			%hr
+			 
 		#footer
 			© 2011 Kngroo, Inc. All Rights Reserved.
+			%hr

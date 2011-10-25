@@ -1,7 +1,11 @@
 class SessionsController < Clearance::SessionsController
   
   def url_after_create
-    user_hops_path
+    if current_user.has_role?('admin')
+      hops_path
+    else
+      user_hops_path
+    end
   end
   
   def url_after_destroy

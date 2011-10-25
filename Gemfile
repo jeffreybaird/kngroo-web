@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'rake', '0.8.7'
 gem 'rails', '3.0.7'
 
 # Bundle edge Rails instead:
@@ -9,6 +10,8 @@ gem 'clearance', '0.12.0', :git => 'git://github.com/agoodman/clearance.git'
 gem 'haml'
 gem 'jquery-rails'
 gem 'aegis'
+gem 'foursquare-api', :git => 'git://github.com/salgadobreno/foursquare-api.git', :require => 'foursquare'
+gem 'geocoder'
 
 # Use unicorn as the web server
 # gem 'unicorn'

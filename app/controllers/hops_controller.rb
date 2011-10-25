@@ -32,4 +32,12 @@ class HopsController < ApplicationController
     end
   end
   
+  def publish
+    @hop = Hop.find(params[:id])
+    deny_access unless current_user.has_role?('admin')
+    @hop.published_at = Time.now
+    @hop.save
+    redirect_to @hop
+  end
+  
 end

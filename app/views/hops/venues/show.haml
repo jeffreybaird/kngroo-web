@@ -1,1 +1,30 @@
-hop: #{@hop.title} venue: #{@venue.name}
+= content_for :breadcrumb do
+	= link_to "All Hops", hops_path
+	»
+	= link_to @hop.title, @hop
+	»
+%h1 Venue: #{@venue.name}
+%p.control= link_to_function "Edit Venue Details", "$('#edit_#{dom_id(@venue)}').dialog({modal:true,title:'Edit Details for Venue: #{@venue.name}',width:'800px'})"
+%div{:id => "edit_#{dom_id(@venue)}", :style => "display:none"}
+	= form_for [@hop,@venue] do |f|
+		%p
+			= f.label :name
+			= f.text_field :name
+		%p
+			= f.label :lat, "Latitude"
+			= f.text_field :lat, :size => 8
+			= f.label :lon, "Longitude"
+			= f.text_field :lng, :size => 8
+		%p
+			= f.label :description
+			= f.text_area :description, :rows => 3, :cols => 20
+		%p.control= f.submit "Update Venue"
+
+%h2 Description
+%p= @venue.description
+
+%h2 Location
+%p Latitude: #{@venue.lat}, Longitude: #{@venue.lng}
+
+%h2 Checkins
+%p #{@venue.checkins.count} checkins at this location

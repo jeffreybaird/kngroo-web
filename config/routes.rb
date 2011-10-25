@@ -16,7 +16,10 @@ Kngroo::Application.routes.draw do
   match '/sign_out' => 'sessions#destroy', :via => [:get,:delete], :as => 'sign_out'
   
   resources :hops, :only => [ :create, :index, :show ] do
-    resources :venues, :controller => 'hops/venues', :only => [ :index, :show ]
+    resources :venues, :controller => 'hops/venues', :only => [ :index, :show, :update, :destroy ]
+    member do
+      get :publish
+    end
   end
   resources :memberships, :only => [ :create, :destroy ]
   resources :leaders, :only => [ :index ]

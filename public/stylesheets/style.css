@@ -1,2 +1,179 @@
 * { margin: 0; padding: 0; }
-body { font-family: Omnes; }
+body { font-family: Helvetica Neue; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+a.pencil, a.wrench, a.trash, a.circleplus, a.image, a.text, a.help, a.clipboard, a.clock, a.gear { font-size: 9pt; }
+img { border: none; }
+li { list-style: none; }
+h1 {
+	font-size: 18pt;
+	font-weight: normal;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 20px;
+}
+h3 { font-size: 16pt; }
+h1 a,
+h2 a,
+h3 a { float: right; }
+hr { clear: both; border: 0; }
+td, th { vertical-align: top; }
+
+/**
+ * General App Layout
+ */
+
+#header, #main, #footer, body > .ui-state-error, body > .ui-state-highlight {
+	clear: both;
+	margin: 0 auto;
+	width: 960px;
+	color: #676767;
+}
+
+#header {
+/*	min-height: 100px;*/
+/*	max-height: 100px;*/
+	padding: 15px 0;
+}
+
+#header .menu {
+	float: right;
+}
+
+#header ul {
+	float: left;
+}
+
+#header ul li {
+	float: left;
+	border-left: 1px solid #ddd;
+	font-size: 10pt;
+}
+
+#header ul li:first-child {
+	border: none;
+}
+
+#header .logo {
+	float: left;
+	font-size: 20pt;
+}
+
+#header ul.admin {
+/*	margin: 10px 25px;*/
+}
+
+#header ul.admin li {
+	margin: 0;
+	min-width: 5em;
+	text-align: center;
+	font-size: 14pt;
+	border-color: #444;
+}
+
+#header ul.admin li a {
+	background: #eee;
+	padding: 10px;
+	color: #000;
+	display: block;
+}
+
+#header ul.admin li a:hover {
+	background: #aaa;
+	color: #444;
+}
+
+#header ul.session {
+	min-width: 8em;
+	margin-left: 15px;
+	padding-left: 25px;
+}
+
+#header ul.session li {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+#header ul.session a {
+	display: block;
+	margin-left: 15px;
+	padding: 15px;
+	color: #444;
+}
+
+#main {
+	clear: both;
+}
+
+#footer {
+	padding: 25px 0;
+}
+
+#footer a {
+	color: #bc0200;
+}
+
+#footer .follow {
+	float: left;
+	padding: 10px;
+	width: 20em;
+	font-size: 8pt;
+}
+
+#footer ul {
+	float: left;
+	margin-left: 25px;
+	padding-left: 15px;
+	border-left: 1px solid #ddd;
+	min-width: 8em;
+	font-size: 10pt;
+}
+
+#footer ul.session {
+	float: right;
+	border: none;
+}
+
+#footer ul.session li {
+	float: left;
+}
+
+#footer ul.session a {
+	display: block;
+	margin-left: 15px;
+	padding: 15px;
+	background: #eee;
+}
+
+#footer ul.general {
+	float: right;
+	margin: 0;
+	margin-top: 10px;
+	padding: 0;
+	border: none;
+	font-size: 8pt;
+}
+
+#footer ul.general li {
+	float: left;
+	margin-left: 10px;
+	padding-left: 10px;
+	border-left: 1px solid #ddd;
+}
+
+#footer ul.general li:first-child {
+	border: none;
+}
+
+#footer .copyright {
+	clear: both;
+	padding-top: 15px;
+}
+
+.control a, .control input[type="submit"] {
+	font-size: 12pt;
+}
+
+#map { margin: 0; }
+
+body > .ui-state-error, body > .ui-state-highlight { width: 920px; padding: 20px; margin-bottom: 15px; }
