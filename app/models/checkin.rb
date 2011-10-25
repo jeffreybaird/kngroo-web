@@ -26,7 +26,13 @@ class Checkin < ActiveRecord::Base
   end
   
   def trophy_awarded
-    Trophy.exists?(:hop_id => assignment.hop_id, :user_id => assignment.user_id)
+    (award_date=trophy_date)!=nil && award_date > assignment.created_at
+  end
+  
+  def trophy_date
+    Trophy.where(:hop_id => assignment.hop_id, :user_id => assignment.user_id).first.created_at
+  rescue 
+    nil
   end
   
 end

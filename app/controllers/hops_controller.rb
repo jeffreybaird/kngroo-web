@@ -4,7 +4,7 @@ class HopsController < ApplicationController
   
   def index
     if signed_in?
-      @hops = Hop.includes(:venues).all - current_user.hops
+      @hops = Hop.includes(:venues).all - Assignment.active.where(:user_id => current_user.id).map(&:hop)
     else
       @hops = Hop.includes(:venues).all
     end

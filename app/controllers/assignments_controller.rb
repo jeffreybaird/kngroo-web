@@ -14,6 +14,7 @@ class AssignmentsController < ApplicationController
   def create
     @assignment = Assignment.new(params[:assignment])
     @assignment.user_id = current_user.id
+    @assignment.complete = false
     
     respond_to do |format|
       if @assignment.save
@@ -21,7 +22,7 @@ class AssignmentsController < ApplicationController
         format.json { render :json => @assignment.to_json(:include => { :hop => { :include => :venues }, :checkins => {} }) }
       else
         format.html { redirect_to user_hops_path, :alert => @assignment.errors.full_messages.join("<br/>") }
-        format.json { render :json => { :errors => @assignment.errors.full_messages } }
+        format.json { render :json => { :errors => @assignment.errors.full_messages }, :status => :unprocessable_entity }
       end
     end
   end
