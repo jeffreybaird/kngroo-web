@@ -32,6 +32,12 @@ class HopsController < ApplicationController
     end
   end
   
+  def destroy
+    @hop = Hop.find(params[:id])
+    @hop.destroy
+    redirect_to hops_path
+  end
+  
   def publish
     @hop = Hop.find(params[:id])
     deny_access unless current_user.has_role?('admin')

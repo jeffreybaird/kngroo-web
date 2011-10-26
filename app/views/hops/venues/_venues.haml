@@ -1,0 +1,12 @@
+- if @venues.empty?
+	%p No results found
+- else
+	%table
+		- for venue in @venues
+			%tr
+				%td= venue.name
+				%td
+					= form_for Membership.new do |f|
+						= f.hidden_field :venue_id, :value => venue.id
+						= f.hidden_field :hop_id, :value => @hop.id
+						= f.submit "Add", :class => 'circleplus'

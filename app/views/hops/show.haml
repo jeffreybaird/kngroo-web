@@ -15,26 +15,43 @@
 - else
 	%ul
 		- for venue in @hop.venues
-			%li= link_to venue.name, hop_venue_path(@hop,venue)
+			%li
+				= venue.name
+				= link_to "delete", [@hop,venue], :method => :delete, :class => "trash"
 
 - if signed_in? && current_user.may_update_hop?(@hop)
-	%p.control= link_to_function "Add Venue", "$('#add_venue').dialog({modal:true,title:'Create a Venue',width:'800px'})"
-	#add_venue.tabs{:style => "display:none"}
-		%ul
-			%li= link_to "Select Existing", '#existing_venue'
-			%li= link_to "Create New", '#new_venue'
-		#existing_venue
-			= form_for Membership.new do |f|
-				= f.hidden_field :hop_id, :value => @hop.id
-				%p
-					= f.label :venue_id
-					= f.collection_select :venue_id, Venue.all-@hop.venues, :id, :name
-				%p.control= f.submit "Add Venue to Hop"
-		#new_venue
-			= form_for Membership.new do |f|
-				= f.hidden_field :hop_id, :value => @hop.id
-				= f.fields_for :venue_attributes do |v|
-					%p
-						= v.label :name
-						= v.text_field :name
-				%p.control= f.submit "Create Venue"
+	%p.control= link_to_function "Add Venue", "$('#add_venue').dialog({modal:true,title:'Find a Venue',width:'800px'});showMap()"
+	#add_venue{:style => "display:none"}
+		.search
+			= form_for :venue, :url => search_hop_venues_path(@hop), :remote => true, :onsubmit => "$(this).addChild()", :id => "venue_search" do |f|
+				= hidden_field_tag "lat", 27.7657260197085
+				= hidden_field_tag "lng", -82.63374998029151
+				%label Enter a name:
+				= text_field_tag :query
+				= f.submit "Search", :class => 'text circleplus'
+			/ = link_to_function "Enter Address", "alert('center map on address')"
+			%hr
+		.results
+			.list
+				Enter a name above to get started.
+			#map
+			%hr
+	/ #add_venue.tabs{:style => "display:none"}
+	/ 	%ul
+	/ 		%li= link_to "Select Existing", '#existing_venue'
+	/ 		%li= link_to "Create New", '#new_venue'
+	/ 	#existing_venue
+	/ 		= form_for Membership.new do |f|
+	/ 			= f.hidden_field :hop_id, :value => @hop.id
+	/ 			%p
+	/ 				= f.label :venue_id
+	/ 				= f.collection_select :venue_id, Venue.all-@hop.venues, :id, :name
+	/ 			%p.control= f.submit "Add Venue to Hop"
+	/ 	#new_venue
+	/ 		= form_for Membership.new do |f|
+	/ 			= f.hidden_field :hop_id, :value => @hop.id
+	/ 			= f.fields_for :venue_attributes do |v|
+	/ 				%p
+	/ 					= v.label :name
+	/ 					= v.text_field :name
+	/ 			%p.control= f.submit "Create Venue"

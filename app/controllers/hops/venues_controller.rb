@@ -1,5 +1,7 @@
 class Hops::VenuesController < ApplicationController
 
+  layout nil, :only => :search
+  
   before_filter :authorize
   before_filter :assign_hop
   before_filter :assign_venue, :only => [ :show, :update, :destroy ]
@@ -37,6 +39,25 @@ class Hops::VenuesController < ApplicationController
       redirect_to [@hop,@venue]
     else
       redirect_to [@hop,@venue], :alert => @venue.errors.full_messages.join("<br/>")
+    end
+  end
+  
+  def search
+    rsp = Foursquare::Venue.search(ll:"#{params[:lat]},#{params[:lng]}",radius:25000,intent:"browse",query:params[:query].gsub(/ /,'+'))
+    @venues = []
+    groups = rsp['response']['groups']
+    if groups && !groups.empty?
+      items = groups.first['items']
+      for item in items
+        venue = Venue.find_or_create_by_name(item['name'])
+        venue.lat = item['lat']
+        venue.lng = item['lng']
+        venue.save
+        @venues << venue
+      end
+    end
+    respond_to do |format|
+      format.js
     end
   end
   
