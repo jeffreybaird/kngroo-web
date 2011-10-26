@@ -42,6 +42,11 @@ class Hops::VenuesController < ApplicationController
     end
   end
   
+  def destroy
+    @hop.venues.delete @venue
+    redirect_to @hop
+  end
+  
   def search
     rsp = Foursquare::Venue.search(ll:"#{params[:lat]},#{params[:lng]}",radius:25000,intent:"browse",query:params[:query].gsub(/ /,'+'))
     @venues = []
