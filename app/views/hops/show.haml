@@ -4,11 +4,29 @@
 
 %h1 Hop: #{@hop.title}
 %p.control
+	%label Status: 
 	- if @hop.published?
-		%label Status: Published
+		Published
 	- else
-		%label Status: Draft
+		Draft
 		= link_to "Publish Now", publish_hop_path(@hop), :class => 'clock text'
+%p.control
+	- if @hop.featured?
+		%label Featured: 
+		Yes
+		= form_for @hop do |f|
+			= f.hidden_field :featured, :value => false
+			= f.submit "Un-Feature"
+	- else
+		%label Featured: 
+		No
+		= form_for @hop do |f|
+			= f.hidden_field :featured, :value => true
+			= f.submit "Feature"
+%p.control
+	%label Category:
+	= form_for @hop do |f|
+		= f.collection_select :category_id, Category.all, :id, :title, {}, { :onchange => "form.submit()" }
 %h2 Venues
 - if @hop.venues.empty?
 	%p No venues

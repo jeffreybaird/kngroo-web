@@ -22,7 +22,7 @@ function button(el,klass) {
 }
 
 function styleButtons() {
-	$(".control a, .control input[type=submit]").button();
+	$(".control a, input[type=submit]").button();
 	button($("a.pencil"), 'ui-icon-pencil');
 	button($("a.trash"), 'ui-icon-trash');
 	button($("a.plus"), 'ui-icon-plus');

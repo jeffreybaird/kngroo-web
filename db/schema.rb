@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20111025210141) do
     t.integer  "hop_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "complete"
+    t.boolean  "complete", :default => false
   end
 
   create_table "categories", :force => true do |t|
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(:version => 20111025210141) do
     t.integer  "points"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "featured"
+    t.boolean  "featured", :default => false
     t.datetime "published_at"
   end
 

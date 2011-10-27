@@ -3,10 +3,12 @@ class HopsController < ApplicationController
   before_filter :authorize
   
   def index
-    if signed_in?
-      @hops = Hop.includes(:venues).all - Assignment.active.where(:user_id => current_user.id).map(&:hop)
-    else
+    if signed_in? && current_user.has_role?('admin')
       @hops = Hop.includes(:venues).all
+    elsif signed_in? && current_user.has_role?('user')
+      @hops = Hop.published.includes(:venues).all - Assignment.active.where(:user_id => current_user.id).map(&:hop)
+    else
+      @hops = Hop.published.includes(:venues).all
     end
 
     respond_to do |format|
@@ -29,6 +31,15 @@ class HopsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @hop.to_json(:include => :venues) }
+    end
+  end
+  
+  def update
+    @hop = Hop.find(params[:id])
+    if @hop.update_attributes(params[:hop])
+      redirect_to @hop
+    else
+      redirect_to @hop, :alert => @hop.errors.full_messages.join("<br/>")
     end
   end
   
