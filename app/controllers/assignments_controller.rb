@@ -3,7 +3,7 @@ class AssignmentsController < ApplicationController
   before_filter :authorize
   
   def index
-    @assignments = Assignment.includes(:hop => :venues).where(:user_id => current_user.id)
+    @assignments = Assignment.includes(:hop => :venues, :checkins => {}).where(:user_id => current_user.id)
     
     respond_to do |format|
       format.html

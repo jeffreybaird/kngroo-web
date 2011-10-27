@@ -3,10 +3,10 @@ class UsersController < Clearance::UsersController
   before_filter :authorize, :only => [ :show, :update, :destroy ]
   
   def show
-    @user = current_user
+    @user = User.includes(:trophies => :hop).where(:id => current_user.id)
     respond_to do |format|
       format.html
-      format.json { render :json => @user.to_json(:include => { :hops => { :include => :venues } }) }
+      format.json { render :json => @user.to_json(:include => { :trophies => { :include => :hop } }) }
     end
   end
   

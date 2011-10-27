@@ -20,7 +20,7 @@ class Checkin < ActiveRecord::Base
   end
   
   def generate_trophy
-    if assignment.complete && !trophy_awarded
+    if assignment.complete && trophy_date==nil
       Trophy.create(:hop_id => assignment.hop_id, :user_id => assignment.user_id)
     end
   end

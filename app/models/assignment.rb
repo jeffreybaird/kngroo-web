@@ -8,7 +8,8 @@ class Assignment < ActiveRecord::Base
   validate :can_only_have_one_active, :on => :create
 
   attr_accessible :hop_id
-  
+
+  default_scope :order => "created_at desc"
   scope :active, where(:complete => false)
   
   def can_only_have_one_active

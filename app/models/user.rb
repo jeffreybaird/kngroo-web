@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
   
   has_many :assignments
   has_many :hops, :through => :assignments
-  has_many :checkins, :through => :assignments
+  has_many :checkins, :through => :assignments, :order => "checkins.created_at desc"
   has_many :confirmations
-  has_many :trophies
+  has_many :trophies, :order => "created_at desc"
   
   before_create :reset_points
   before_create :generate_api_token
