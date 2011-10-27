@@ -1,3 +1,13 @@
+$('#add_venue .search .activity').hide();
+
+try {
+clearOverlays();
+<% for venue in @venues -%>
+var tMarker = new google.maps.Marker({map:map,clickable:false,draggable:false,position:new google.maps.LatLng(<%= venue.lat %>,<%= venue.lng %>)});
+markers.push(tMarker);
+<% end -%>
+}catch(e) {alert(e);}
+
 $('#add_venue .results .list').html("<%= escape_javascript(render :partial => 'hops/venues/venues') %>")
 $('#add_venue .results .list').effect('highlight');
 styleButtons();

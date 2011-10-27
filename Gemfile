@@ -10,7 +10,7 @@ gem 'clearance', '0.12.0', :git => 'git://github.com/agoodman/clearance.git'
 gem 'haml'
 gem 'jquery-rails'
 gem 'aegis'
-gem 'foursquare-api', :git => 'git://github.com/salgadobreno/foursquare-api.git', :require => 'foursquare'
+gem 'foursquare-api', :git => 'git://github.com/agoodman/foursquare-api.git', :require => 'foursquare'
 gem 'geocoder'
 
 # Use unicorn as the web server

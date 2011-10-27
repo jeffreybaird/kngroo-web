@@ -48,19 +48,30 @@ class Hops::VenuesController < ApplicationController
   end
   
   def search
-    rsp = Foursquare::Venue.search(ll:"#{params[:lat]},#{params[:lng]}",radius:25000,intent:"browse",query:params[:query].gsub(/ /,'+'))
+    if params[:sw] && params[:ne] && params[:query]
+      rsp = Foursquare::Venue.search(sw:params[:sw],ne:params[:ne],query:params[:query].gsub(/ /,"+"),intent:"browse",limit:params[:limit])
+    else
+      rsp = Foursquare::Venue.search(ll:"#{params[:lat]},#{params[:lng]}",radius:25000,intent:"browse",query:params[:query].gsub(/ /,"+"))
+    end
     @venues = []
-    groups = rsp['response']['groups']
-    if groups && !groups.empty?
-      items = groups.first['items']
-      for item in items
-        venue = Venue.find_or_create_by_name(item['name'])
-        venue.lat = item['lat']
-        venue.lng = item['lng']
-        venue.save
-        @venues << venue
+    if rsp['meta']['code']==400
+      @error = rsp['meta']['errorDetail']
+    else
+      groups = rsp['response']['groups']
+      if groups && !groups.empty?
+        items = groups.first['items']
+        for item in items
+          venue = Venue.find_or_create_by_name(item['name'])
+          venue.address = item['location']['address']
+          venue.lat = item['location']['lat']
+          venue.lng = item['location']['lng']
+          venue.save
+          @venues << venue
+        end
       end
     end
+    @venues = @venues - @hop.venues
+    
     respond_to do |format|
       format.js
     end

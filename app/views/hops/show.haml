@@ -23,12 +23,20 @@
 	%p.control= link_to_function "Add Venue", "$('#add_venue').dialog({modal:true,title:'Find a Venue',width:'800px'});showMap()"
 	#add_venue{:style => "display:none"}
 		.search
-			= form_for :venue, :url => search_hop_venues_path(@hop), :remote => true, :onsubmit => "$(this).addChild()", :id => "venue_search" do |f|
-				= hidden_field_tag "lat", 27.7657260197085
-				= hidden_field_tag "lng", -82.63374998029151
+			= form_for :venue, :url => search_hop_venues_path(@hop), :remote => true, :id => "venue_search" do |f|
+				= hidden_field_tag "sw", "27.6657260197085,-82.73374998029151"
+				= hidden_field_tag "ne", "27.8657260197085,-82.53374998029151"
 				%label Enter a name:
 				= text_field_tag :query
-				= f.submit "Search", :class => 'text circleplus'
+				= f.submit "Search", :class => 'text circleplus', :onclick => "$('#add_venue .search .activity').show()"
+				%span.radio
+					= radio_button_tag "limit", 10, :selected => true
+					%label{:for => "limit_10"} 10
+					= radio_button_tag "limit", 20
+					%label{:for => "limit_20"} 20
+					= radio_button_tag "limit", 50
+					%label{:for => "limit_50"} 50
+				= image_tag 'activity.gif', :width => 25, :height => 25, :class => 'activity', :style => "display:none"
 			/ = link_to_function "Enter Address", "alert('center map on address')"
 			%hr
 		.results

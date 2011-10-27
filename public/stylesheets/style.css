@@ -182,9 +182,11 @@ body > .ui-state-error, body > .ui-state-highlight { width: 920px; padding: 20px
 #add_venue .search { height: 50px; }
 #add_venue .search form,
 #add_venue .search a { float: left; }
+/*#add_venue .search .radio { float: right; }*/
 #add_venue .results { height: 320px; }
 #add_venue .results .list { width: 300px; height: 320px; font-size: 10pt; overflow: auto; }
 #add_venue .results .list table { width: 100%; }
 #add_venue .results .list td:first-child { width: 230px; }
+#add_venue .results .list td span { font-size: 8pt; color: #aaa; }
 #add_venue .results .list,
 #add_venue .results .map { float: left; }

@@ -1,10 +1,15 @@
 - if @venues.empty?
-	%p No results found
+	- if @error
+		%p= @error
+	- else
+		%p No results found
 - else
 	%table
 		- for venue in @venues
 			%tr
-				%td= venue.name
+				%td
+					%p= venue.name
+					%span= venue.address
 				%td
 					= form_for Membership.new do |f|
 						= f.hidden_field :venue_id, :value => venue.id

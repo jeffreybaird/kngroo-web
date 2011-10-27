@@ -38,22 +38,27 @@ function styleButtons() {
 	$(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
 	$(".tabs").tabs();
 	$(".accordion").accordion();
+	$(".radio").buttonset();
 }
 
 // map code
 
 var map;
 var initialLocation;
+var markers = new Array();
+
 function showMap() {
 	var myOptions = {
 		zoom: 10,
+		minZoom: 6,
+		maxZoom: 16,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(document.getElementById("map"), myOptions);
 
-	google.maps.event.addListener(map, "mouseup", function() {
-		$('#lat').val(map.getCenter().lat());
-		$('#lng').val(map.getCenter().lng());
+	google.maps.event.addListener(map, "bounds_changed", function() {
+		$('#sw').val(map.getBounds().getSouthWest().lat()+","+map.getBounds().getSouthWest().lng());
+		$('#ne').val(map.getBounds().getNorthEast().lat()+","+map.getBounds().getNorthEast().lng());
 	});
 
 	if(false && navigator.geolocation) {
@@ -67,6 +72,13 @@ function showMap() {
 	}else{
 		handleNoGeolocation(false);
 	}
+}
+
+function clearOverlays() {
+	for(var k=0;k<markers.length;k++) {
+		markers[k].setMap(null);
+	}
+	markers = new Array();
 }
 
 function handleNoGeolocation(errorFlag) {

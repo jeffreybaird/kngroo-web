@@ -7,8 +7,8 @@ GIT
       rails (>= 3.0)
 
 GIT
-  remote: git://github.com/salgadobreno/foursquare-api.git
-  revision: 1a6ebe3b882cf800ab19bffe58eab50a3610f312
+  remote: git://github.com/agoodman/foursquare-api.git
+  revision: 13e1a629c825f5b46fdef8b095ee7252addb2d5f
   specs:
     foursquare-api (0.0.5)
 
