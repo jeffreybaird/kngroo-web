@@ -18,9 +18,15 @@ class TriviasController < ApplicationController
   
   def index
     trivia = Trivia.where(:hop_id => @assignment.hop_id, :venue_id => @venue.id).order('random()').limit(1).first
-    @trivias = [trivia] + trivia.wrong_answers
-    respond_to do |format|
-      format.json { render :json => @trivias }
+    if trivia
+      @trivias = [trivia] + trivia.wrong_answers
+      respond_to do |format|
+        format.json { render :json => @trivias }
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => { :errors => [ "Insufficient trivia questions" ] }, :status => :unprocessable_entity }
+      end
     end
   end
   
