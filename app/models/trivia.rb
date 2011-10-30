@@ -9,11 +9,16 @@ class Trivia < ActiveRecord::Base
   set_table_name 'trivia'
 
   def wrong_answers
-    Trivia.where(:numeric_answer => numeric_answer).
+    unfiltered = Trivia.where(:numeric_answer => numeric_answer).
             where(['id != ?',id]).
             where('answer != ?',answer).
             order('random()').
-            limit(3)
+            limit(5)
+    filtered = []
+    for e in unfiltered
+      filtered << e unless filtered.map(&:answer).uniq.include?(e.answer)
+    end
+    filtered[0..2]
   end
   
 end
