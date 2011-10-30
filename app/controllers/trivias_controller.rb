@@ -1,8 +1,9 @@
 class TriviasController < ApplicationController
 
   before_filter :authorize
-  before_filter :assign_hop
+  before_filter :assign_hop, :only => [ :create, :update, :destroy ]
   before_filter :assign_venue
+  before_filter :assign_assignment, :only => [ :show ]
   
   def create
     @trivia = Trivia.new(params[:trivia])
@@ -16,7 +17,7 @@ class TriviasController < ApplicationController
   end
   
   def show
-    @trivia = Trivia.where(:hop_id => @hop.id, :venue_id => @venue.id).order('random()').limit(1).first
+    @trivia = Trivia.where(:hop_id => @assignment.hop_id, :venue_id => @venue.id).order('random()').limit(1).first
     respond_to do |format|
       format.json { render :json => @trivia.to_json(:methods => :wrong_answers) }
     end
@@ -40,6 +41,11 @@ class TriviasController < ApplicationController
   def assign_hop
     @hop = Hop.find(params[:hop_id]) if params[:hop_id]
     # deny_access unless @hop.users.include?(current_user)
+  end
+  
+  def assign_assignment
+    @assignment = Assignment.find(params[:assignment_id]) if params[:assignment_id]
+    deny_access unless @assignment.user==current_user
   end
   
   def assign_venue

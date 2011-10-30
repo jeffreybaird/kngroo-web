@@ -5,6 +5,7 @@ Kngroo::Application.routes.draw do
     resources :hops, :controller => 'users/hops', :only => [ :index, :show ]
     resources :assignments, :only => [ :index, :create, :destroy ] do
       resources :venues, :only => :show do
+        resource :trivia, :only => [ :show ]
         resources :checkins, :only => :create
       end
     end
@@ -21,7 +22,6 @@ Kngroo::Application.routes.draw do
         post :search
       end
       resources :trivias, :only => [ :create, :update, :destroy ]
-      resource :trivia, :only => [ :show ]
     end
     member do
       get :publish
