@@ -12,7 +12,6 @@ class Trivia < ActiveRecord::Base
     Trivia.where(:numeric_answer => numeric_answer).
             where(['id != ?',id]).
             where('answer != ?',answer).
-            group('id,answer').
             order('random()').
             limit(3)
   end
