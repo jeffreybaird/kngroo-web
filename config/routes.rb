@@ -9,6 +9,7 @@ Kngroo::Application.routes.draw do
         resources :checkins, :only => :create
       end
     end
+    resources :attempts, :only => [ :create ]
   end
   resources :sessions, :only => :new
   resource :session, :only => [ :create, :destroy ]
