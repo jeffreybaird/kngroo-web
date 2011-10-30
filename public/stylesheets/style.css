@@ -11,7 +11,11 @@ h1 {
 	border-bottom: 1px solid #ccc;
 	margin-bottom: 20px;
 }
-h3 { font-size: 16pt; }
+h1 a { font-size: 14pt; }
+h2 { font-size: 14pt; margin-top: 10px; margin-bottom: 15px; }
+h2 a { font-size: 12pt; }
+h3 { font-size: 12pt; }
+h3 a { font-size: 10pt; }
 h1 a,
 h2 a,
 h3 a { float: right; }
@@ -190,3 +194,10 @@ body > .ui-state-error, body > .ui-state-highlight { width: 920px; padding: 20px
 #add_venue .results .list td span { font-size: 8pt; color: #aaa; }
 #add_venue .results .list,
 #add_venue .results .map { float: left; }
+
+#venue .details,
+#venue .trivia { float: left; width: 450px; }
+#venue .details { margin-right: 60px; }
+#venue .trivia li { height: 70px; }
+#venue .trivia li a { visibility: hidden; }
+#venue .trivia li:hover a { visibility: visible; }

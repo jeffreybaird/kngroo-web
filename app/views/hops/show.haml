@@ -34,7 +34,7 @@
 	%ul
 		- for venue in @hop.venues
 			%li
-				= venue.name
+				= link_to venue.name, [@hop,venue]
 				= link_to "delete", [@hop,venue], :method => :delete, :class => "trash"
 
 - if signed_in? && current_user.may_update_hop?(@hop)

@@ -3,28 +3,70 @@
 	»
 	= link_to @hop.title, @hop
 	»
-%h1 Venue: #{@venue.name}
-%p.control= link_to_function "Edit Venue Details", "$('#edit_#{dom_id(@venue)}').dialog({modal:true,title:'Edit Details for Venue: #{@venue.name}',width:'800px'})"
-%div{:id => "edit_#{dom_id(@venue)}", :style => "display:none"}
-	= form_for [@hop,@venue] do |f|
-		%p
-			= f.label :name
-			= f.text_field :name
-		%p
-			= f.label :lat, "Latitude"
-			= f.text_field :lat, :size => 8
-			= f.label :lon, "Longitude"
-			= f.text_field :lng, :size => 8
-		%p
-			= f.label :description
-			= f.text_area :description, :rows => 3, :cols => 20
-		%p.control= f.submit "Update Venue"
+	
+#venue
+	%h1 Venue: #{@venue.name}
 
-%h2 Description
-%p= @venue.description
+	.details
+		%h2 
+			Description
+			= link_to_function "Edit Description", "$('#edit_#{dom_id(@venue)}').dialog({modal:true,title:'Edit Details for Venue: #{@venue.name}',width:'800px'})", :class => 'pencil text'
+		%div{:id => "edit_#{dom_id(@venue)}", :style => "display:none"}
+			= form_for [@hop,@venue] do |f|
+				%p
+					= f.label :description
+					= f.text_area :description, :rows => 3, :cols => 20
+				%p.control= f.submit "Update Venue"
+	
+		%p= @venue.description || "No description on file"
 
-%h2 Location
-%p Latitude: #{@venue.lat}, Longitude: #{@venue.lng}
+		%h2 Location
+		%p 
+			Latitude: #{@venue.lat}
+			%br
+			Longitude: #{@venue.lng}
 
-%h2 Checkins
-%p #{@venue.checkins.count} checkins at this location
+		%h2 Checkins
+		%p #{@venue.checkins.count} checkins at this location
+
+	.trivia
+		%h2
+			Trivia
+			= link_to_function "Add Trivia", "$('#add_trivia').dialog({modal:true,title:'Edit Trivia for hop #{@hop.title} and venue #{@venue.name}',width:'800px'})", :class => 'circleplus text'
+		#add_trivia{:style => "display:none"}
+			= form_for [@hop,@venue,Trivia.new] do |f|
+				%p
+					= f.label :question
+					= f.text_field :question
+				%p
+					= f.label :answer
+					= f.text_field :answer
+				%p
+					= f.label :numeric_answer
+					= f.check_box :numeric_answer
+				%p.control= f.submit "Create Trivia"
+		- hop_trivias = @venue.trivias.select {|t| t.hop==@hop}
+		- if hop_trivias.empty?
+			%p No trivia on file
+		- else
+			%ul
+				- for trivia in hop_trivias
+					%li
+						%p 
+							Q: #{trivia.question}
+							= link_to_function "Edit", "$('#edit_#{dom_id(trivia)}').dialog({modal:true,title:'Edit question for hop #{@hop.title} and venue #{@venue.name}',width:'800px'})", :class => 'pencil'
+							= link_to "Delete", [@hop,@venue,trivia], :method => :delete, :class => 'trash'
+						%p A: #{trivia.answer}
+						%div{:id => "edit_#{dom_id(trivia)}", :style => "display:none"}
+							= form_for [@hop,@venue,trivia] do |f|
+								%p
+									= f.label :question
+									= f.text_field :question
+								%p
+									= f.label :answer
+									= f.text_field :answer
+								%p
+									= f.label :numeric_answer
+									= f.check_box :numeric_answer
+								%p.control= f.submit "Update Trivia"
+	%hr

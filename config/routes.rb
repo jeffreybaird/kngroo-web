@@ -20,6 +20,8 @@ Kngroo::Application.routes.draw do
       collection do
         post :search
       end
+      resources :trivias, :only => [ :create, :update, :destroy ]
+      resource :trivia, :only => [ :show ]
     end
     member do
       get :publish

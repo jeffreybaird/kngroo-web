@@ -1,7 +1,5 @@
 class Hops::VenuesController < ApplicationController
 
-  layout nil, :only => :search
-  
   before_filter :authorize
   before_filter :assign_hop
   before_filter :assign_venue, :only => [ :show, :update, :destroy ]
@@ -73,7 +71,7 @@ class Hops::VenuesController < ApplicationController
     @venues = @venues - @hop.venues
     
     respond_to do |format|
-      format.js
+      format.js { render :layout => false }
     end
   end
   
