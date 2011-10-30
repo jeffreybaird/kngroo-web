@@ -3,7 +3,7 @@ class TriviasController < ApplicationController
   before_filter :authorize
   before_filter :assign_hop, :only => [ :create, :update, :destroy ]
   before_filter :assign_venue
-  before_filter :assign_assignment, :only => [ :show ]
+  before_filter :assign_assignment, :only => [ :index ]
   
   def create
     @trivia = Trivia.new(params[:trivia])
@@ -16,10 +16,11 @@ class TriviasController < ApplicationController
     end
   end
   
-  def show
-    @trivia = Trivia.where(:hop_id => @assignment.hop_id, :venue_id => @venue.id).order('random()').limit(1).first
+  def index
+    trivia = Trivia.where(:hop_id => @assignment.hop_id, :venue_id => @venue.id).order('random()').limit(1).first
+    @trivias = [trivia] + trivia.wrong_answers
     respond_to do |format|
-      format.json { render :json => @trivia.to_json(:methods => :wrong_answers) }
+      format.json { render :json => @trivias }
     end
   end
   
