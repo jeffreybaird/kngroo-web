@@ -2,40 +2,48 @@
 	= link_to "All Hops", hops_path
 	»
 
-%h1 Hop: #{@hop.title}
-%p.control
-	%label Status: 
-	- if @hop.published?
-		Published
-	- else
-		Draft
-		= link_to "Publish Now", publish_hop_path(@hop), :class => 'clock text'
-%p.control
-	- if @hop.featured?
-		%label Featured: 
-		Yes
-		= form_for @hop do |f|
-			= f.hidden_field :featured, :value => false
-			= f.submit "Un-Feature"
-	- else
-		%label Featured: 
-		No
-		= form_for @hop do |f|
-			= f.hidden_field :featured, :value => true
-			= f.submit "Feature"
-%p.control
-	%label Category:
-	= form_for @hop do |f|
-		= f.collection_select :category_id, Category.all, :id, :title, {}, { :onchange => "form.submit()" }
-%h2 Venues
-- if @hop.venues.empty?
-	%p No venues
-- else
-	%ul
-		- for venue in @hop.venues
-			%li
-				= link_to venue.name, [@hop,venue]
-				= link_to "delete", [@hop,venue], :method => :delete, :class => "trash"
+#hop
+	%h1 Hop: #{@hop.title}
+	.detail
+		%p.control
+			%label Status: 
+			- if @hop.published?
+				Published
+			- else
+				Draft
+				- if @hop.venues.empty?
+					%span You must add at least one venue before you may publish this hop.
+				- elsif @hop.ready_for_publication?
+					= link_to "Publish Now", publish_hop_path(@hop), :class => 'clock text'
+				- else
+					%span You must add a trivia question to each venue before you may publish this hop.
+		%p.control
+			- if @hop.featured?
+				%label Featured: 
+				Yes
+				= form_for @hop do |f|
+					= f.hidden_field :featured, :value => false
+					= f.submit "Un-Feature"
+			- else
+				%label Featured: 
+				No
+				= form_for @hop do |f|
+					= f.hidden_field :featured, :value => true
+					= f.submit "Feature"
+		%p.control
+			%label Category:
+			= form_for @hop do |f|
+				= f.collection_select :category_id, Category.all, :id, :title, {}, { :onchange => "form.submit()" }
+	.venues
+		%h2 Venues
+		- if @hop.venues.empty?
+			%p No venues
+		- else
+			%ul
+				- for venue in @hop.venues
+					%li
+						= link_to venue.name, [@hop,venue]
+						= link_to "delete", [@hop,venue], :method => :delete, :class => "trash"
 
 - if signed_in? && current_user.may_update_hop?(@hop)
 	%p.control= link_to_function "Add Venue", "$('#add_venue').dialog({modal:true,title:'Find a Venue',width:'800px'});showMap()"

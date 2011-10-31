@@ -19,4 +19,8 @@ class Hop < ActiveRecord::Base
     published_at!=nil && published_at < Time.now  
   end
   
+  def ready_for_publication?
+    !venues.empty? && venues.reject {|v| Trivia.exists?(:hop_id => id, :venue_id => v.id)}.empty?
+  end
+  
 end

@@ -201,3 +201,5 @@ body > .ui-state-error, body > .ui-state-highlight { width: 920px; padding: 20px
 #venue .trivia li { height: 70px; }
 #venue .trivia li a { visibility: hidden; }
 #venue .trivia li:hover a { visibility: visible; }
+
+#hop .detail span { font-size: 8pt; }
