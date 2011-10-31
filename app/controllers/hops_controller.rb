@@ -1,6 +1,6 @@
 class HopsController < ApplicationController
 
-  before_filter :authorize
+  before_filter :authorize, :except => :index
   
   def index
     if signed_in? && current_user.has_role?('admin')

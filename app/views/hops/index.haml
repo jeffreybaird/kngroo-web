@@ -5,11 +5,21 @@
 - if @hops.empty?
 	%p No available hops
 - else
-	%ul.hops
+	%table.hops
+		%tr
+			%th NAME
+			%th CATEGORY
+			%th PUBLISHED AT
+			%th FEATURED
+			%th
 		- for hop in @hops
-			%li
-				= link_to hop.title, hop
-				= link_to "delete", hop, :method => :delete, :class => 'trash'
+			%tr
+				%td= link_to hop.title, hop
+				%td= hop.category.title unless hop.category.nil?
+				%td= hop.published_at.to_s(:short)
+				%td= hop.featured? ? "YES" : "NO"
+				%td
+					= link_to "delete", hop, :method => :delete, :class => 'trash'
 
 - if signed_in? && current_user.may_create_hop?
 	%p.control= link_to_function "Add Hop", "$('#add_hop').dialog({modal:true,title:'Create a Hop',width:'800px'})"

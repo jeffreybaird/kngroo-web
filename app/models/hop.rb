@@ -12,7 +12,8 @@ class Hop < ActiveRecord::Base
   validates_presence_of :title, :description, :points
   validates_numericality_of :points
   
-  scope :published, where('published_at < ?',Time.now)
+  default_scope :order => 'title asc'
+  scope :published, where('published_at <= ?',Time.now)
   
   def published?
     published_at!=nil && published_at < Time.now  
