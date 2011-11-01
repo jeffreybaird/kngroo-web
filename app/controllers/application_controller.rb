@@ -15,4 +15,11 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def deny_access
+    respond_to do |format|
+      format.html { redirect_to sign_in_path }
+      format.json { render :json => { :errors => [ "You must be signed in" ] }, :status => :unauthorized }
+    end
+  end
+  
 end
