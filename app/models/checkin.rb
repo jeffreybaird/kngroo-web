@@ -11,11 +11,15 @@ class Checkin < ActiveRecord::Base
   
   def assign_points
     if assignment.hop.venues.count==assignment.checkins.count
+      assignment.user.points += 10
       assignment.user.points += assignment.hop.points
       assignment.user.save
       
       assignment.complete = true
       assignment.save
+    else
+      assignment.user.points += 10
+      assignment.user.save
     end
   end
   
