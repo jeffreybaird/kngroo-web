@@ -12,4 +12,8 @@ class SessionsController < Clearance::SessionsController
     root_path
   end
   
+  def hash_after_create
+    { :session => { :user_id => current_user.id, :api_token => current_user.api_token } }
+  end
+  
 end
