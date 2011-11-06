@@ -1,5 +1,7 @@
 class LeadersController < ApplicationController
 
+  before_filter :authorize
+  
   def index
     @users = User.order('points desc').limit(10)
     respond_to do |format|

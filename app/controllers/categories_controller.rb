@@ -8,7 +8,6 @@ class CategoriesController < ApplicationController
       @error = rsp['meta']['errorDetail']
     else
       for cat in rsp['response']['categories']
-        puts cat['name']
         c = Category.find_or_create_by_title(cat['name'])
         c.icon = cat['icon']
         c.save

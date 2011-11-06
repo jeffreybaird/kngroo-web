@@ -11,7 +11,7 @@ class MembershipsController < ApplicationController
   
   def destroy
     @membership = Membership.find(params[:id])
-    @hop = @memberhsip.hop
+    @hop = @membership.hop
     @membership.destroy
     redirect_to @hop
   end
