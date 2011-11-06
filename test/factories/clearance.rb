@@ -5,6 +5,8 @@ end
 Factory.define :user do |factory|
   factory.email    { Factory.next :email }
   factory.password { "password" }
+  factory.first_name { "first" }
+  factory.last_name { "last" }
 end
 
 Factory.define :email_confirmed_user, :parent => :user do |factory|
