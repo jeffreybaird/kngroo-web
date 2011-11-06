@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :confirmations
   has_many :trophies, :order => "created_at desc"
   
+  validate_presence_of :first_name, :last_name
+  
   before_create :reset_points
   before_create :generate_api_token
 

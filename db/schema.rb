@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111030223824) do
+ActiveRecord::Schema.define(:version => 20111106174204) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer   "resource_id",   :null => false
@@ -54,11 +54,11 @@ ActiveRecord::Schema.define(:version => 20111030223824) do
   end
 
   create_table "attempts", :force => true do |t|
-    t.integer  "trivia_id"
-    t.integer  "user_id"
-    t.boolean  "correct_answer", :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "trivia_id"
+    t.integer   "user_id"
+    t.boolean   "correct_answer", :default => false
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "categories", :force => true do |t|
@@ -129,6 +129,8 @@ ActiveRecord::Schema.define(:version => 20111030223824) do
     t.timestamp "updated_at"
     t.integer   "points"
     t.string    "role_name"
+    t.string    "first_name"
+    t.string    "last_name"
   end
 
   add_index "users", ["api_token"], :name => "index_users_on_api_token"
