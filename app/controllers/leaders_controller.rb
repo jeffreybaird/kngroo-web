@@ -6,7 +6,7 @@ class LeadersController < ApplicationController
     @users = User.order('points desc').limit(10)
     respond_to do |format|
       format.html
-      format.json { render :json => @users.to_json(:only => [ :first_name, :last_name, :points ]) }
+      format.json { render :json => @users.to_json(:only => [ :email, :first_name, :last_name, :points ]) }
     end
   end
 
