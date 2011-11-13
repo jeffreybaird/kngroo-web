@@ -7,7 +7,7 @@ class AssignmentsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json { render :json => @assignments.to_json(:include => { :hop => { :include => :venues }, :checkins => {} }) }
+      format.json { render :json => @assignments.to_json(:include => { :hop => { :include => :venues, :methods => [ :stamp_url, :image_url ] }, :checkins => {} }) }
     end
   end
   

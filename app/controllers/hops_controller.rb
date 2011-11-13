@@ -13,7 +13,7 @@ class HopsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @hops.to_json(:include => :venues) }
+      format.json { render :json => @hops.to_json(:include => :venues, :methods => [ :stamp_url, :image_url ]) }
     end
   end
   
