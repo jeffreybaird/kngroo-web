@@ -34,6 +34,15 @@
 			%label Category:
 			= form_for @hop do |f|
 				= f.collection_select :category_id, Category.all, :id, :title, {}, { :onchange => "form.submit()" }
+		%p.control
+			%label Stamp:
+			- if @hop.stamp_file_name.blank?
+				No image
+			- else
+				= image_tag @hop.stamp_url
+			= form_for @hop do |f|
+				= f.file_field :stamp
+				= f.submit "Upload Image"
 	.venues
 		%h2 Venues
 		- if @hop.venues.empty?

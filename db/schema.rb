@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111106174204) do
+ActiveRecord::Schema.define(:version => 20111113011813) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer   "resource_id",   :null => false
@@ -92,6 +92,11 @@ ActiveRecord::Schema.define(:version => 20111106174204) do
     t.timestamp "updated_at"
     t.boolean   "featured"
     t.timestamp "published_at"
+    t.string    "stamp_name"
+    t.string    "stamp_file_name"
+    t.string    "stamp_content_type"
+    t.integer   "stamp_file_size"
+    t.datetime  "stamp_updated_at"
   end
 
   create_table "memberships", :force => true do |t|

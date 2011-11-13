@@ -1,0 +1,14 @@
+development:
+    access_key_id: <%= ENV['AWS_S3_KEY'] %>
+    secret_access_key: <%= ENV['AWS_S3_SECRET'] %>
+    bucket: kngroo-development
+
+test:
+    access_key_id: <%= ENV['AWS_S3_KEY'] %>
+    secret_access_key: <%= ENV['AWS_S3_SECRET'] %>
+    bucket: kngroo-test
+
+production:
+    access_key_id: <%= ENV['AWS_S3_KEY'] %>
+    secret_access_key: <%= ENV['AWS_S3_SECRET'] %>
+    bucket: kngroo

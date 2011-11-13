@@ -12,6 +12,8 @@ gem 'jquery-rails'
 gem 'aegis'
 gem 'foursquare-api', :git => 'git://github.com/agoodman/foursquare-api.git', :require => 'foursquare'
 gem 'geocoder'
+gem 'aws-s3'
+gem 'paperclip'
 
 # Use unicorn as the web server
 # gem 'unicorn'

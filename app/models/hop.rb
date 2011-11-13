@@ -12,6 +12,12 @@ class Hop < ActiveRecord::Base
   validates_presence_of :title, :description, :points
   validates_numericality_of :points
   
+  has_attached_file :stamp,
+    :storage => :s3, 
+    :s3_credentials => "config/s3.yml",
+    :s3_protocol => 'https',
+    :path => "/hops/:id/stamp"
+  
   default_scope :order => 'title asc'
   scope :published, where('published_at <= ?',Time.now)
   
