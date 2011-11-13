@@ -17,6 +17,12 @@ class Hop < ActiveRecord::Base
     :s3_credentials => "config/s3.yml",
     :s3_protocol => 'https',
     :path => "/hops/:id/stamp"
+    
+  has_attached_file :image,
+    :storage => :s3,
+    :s3_credentials => "config/s3.yml",
+    :s3_protocol => 'https',
+    :path => "/hops/:id/image"
   
   default_scope :order => 'title asc'
   scope :published, where('published_at <= ?',Time.now)
